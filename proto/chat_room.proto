@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package chat_room;
+
+// Service LayananChat sesuai arsitektur diagram dan spesifikasi PDF Praktikum RPC
+service LayananChat {
+  // RPC 1: Join / Registrasi sesi pengguna
+  rpc Join (JoinRequest) returns (JoinResponse);
+
+  // RPC 2: Mengambil daftar pengguna aktif di memori server
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+
+  // RPC 3: Jalur Unary untuk pengiriman pesan dengan perlindungan request_id
+  rpc SendMessage (SendMessageRequest) returns (SendMessageResponse);
+
+  // RPC 4: Jalur Bidirectional Streaming untuk pertukaran pesan real-time
+  rpc Chat (stream ChatFrame) returns (stream ChatFrame);
+}
+
+// Request untuk registrasi pengguna baru
+message JoinRequest {
+  string username = 1;
+  string client_id = 2;
+  string request_id = 3;
+}
+
+// Response registrasi pengguna
+message JoinResponse {
+  bool success = 1;
+  string message = 2;
+  string user_id = 3;
+  int64 joined_at = 4;
+}
+
+// Request pengambilan daftar pengguna aktif
+message ListUsersRequest {
+  string request_id = 1;
+}
+
+// Data entitas pengguna aktif
+message UserInfo {
+  string user_id = 1;
+  string username = 2;
+  int64 connected_at = 3;
+  bool is_active = 4;
+}
+
+// Response daftar pengguna aktif
+message ListUsersResponse {
+  bool success = 1;
+  repeated UserInfo users = 2;
+  int32 total_users = 3;
+}
+
+// Request pengiriman pesan via Unary RPC
+message SendMessageRequest {
+  string request_id = 1;
+  string sender_username = 2;
+  string content = 3;
+  int64 timestamp = 4;
+}
+
+// Response pengiriman pesan via Unary RPC
+message SendMessageResponse {
+  string request_id = 1;
+  bool success = 2;
+  string message = 3;
+  int64 delivered_at = 4;
+}
+
+// Tipe frame dalam aliran bidirectional streaming Chat
+enum FrameType {
+  FRAME_TYPE_UNSPECIFIED = 0;
+  FRAME_TYPE_JOIN = 1;
+  FRAME_TYPE_MESSAGE = 2;
+  FRAME_TYPE_LEAVE = 3;
+  FRAME_TYPE_HEARTBEAT = 4;
+  FRAME_TYPE_ACK = 5;
+  FRAME_TYPE_USER_EVENT = 6;
+  FRAME_TYPE_ERROR = 7;
+}
+
+// Frame pesan dua arah untuk RPC Chat
+message ChatFrame {
+  FrameType type = 1;
+  string request_id = 2;
+  string sender = 3;
+  string content = 4;
+  int64 timestamp = 5;
+  string user_id = 6;
+}

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="760" viewBox="0 0 680 380" font-family="Arial, Helvetica, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#444441" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect width="680" height="380" fill="#ffffff"/>
+<rect x="30" y="40" width="200" height="304" rx="12" fill="none" stroke="#888780" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="130" y="58" font-size="14" font-weight="bold" fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">Container client</text>
+<g>
+<rect x="50" y="80" width="160" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+<text x="130" y="98" font-size="14" font-weight="bold" fill="#085041" text-anchor="middle" dominant-baseline="central">Client CLI A</text>
+<text x="130" y="118" font-size="12" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">kirim + terima</text>
+<rect x="50" y="168" width="160" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+<text x="130" y="186" font-size="14" font-weight="bold" fill="#085041" text-anchor="middle" dominant-baseline="central">Client CLI B</text>
+<text x="130" y="206" font-size="12" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">kirim + terima</text>
+<rect x="50" y="256" width="160" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+<text x="130" y="274" font-size="14" font-weight="bold" fill="#085041" text-anchor="middle" dominant-baseline="central">Client CLI N</text>
+<text x="130" y="294" font-size="12" fill="#0F6E56" text-anchor="middle" dominant-baseline="central">uji beban 20 client</text>
+</g>
+<line x1="232" y1="192" x2="346" y2="192" stroke="#444441" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+<text x="289" y="176" font-size="12" fill="#5F5E5A" text-anchor="middle" dominant-baseline="central">gRPC :50051</text>
+<text x="289" y="210" font-size="12" fill="#5F5E5A" text-anchor="middle" dominant-baseline="central">HTTP/2</text>
+<rect x="350" y="40" width="300" height="304" rx="12" fill="none" stroke="#888780" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="500" y="58" font-size="14" font-weight="bold" fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">Container server</text>
+<rect x="366" y="76" width="268" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+<text x="500" y="94" font-size="14" font-weight="bold" fill="#3C3489" text-anchor="middle" dominant-baseline="central">gRPC server</text>
+<text x="500" y="114" font-size="12" fill="#534AB7" text-anchor="middle" dominant-baseline="central">ThreadPoolExecutor, :50051</text>
+<line x1="500" y1="132" x2="500" y2="154" stroke="#444441" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="366" y="156" width="268" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+<text x="500" y="174" font-size="14" font-weight="bold" fill="#3C3489" text-anchor="middle" dominant-baseline="central">LayananChat</text>
+<text x="500" y="194" font-size="12" fill="#534AB7" text-anchor="middle" dominant-baseline="central">Join, ListUsers, SendMessage, Chat</text>
+<line x1="500" y1="212" x2="500" y2="234" stroke="#444441" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="366" y="236" width="268" height="88" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1"/>
+<text x="500" y="254" font-size="14" font-weight="bold" fill="#444441" text-anchor="middle" dominant-baseline="central">State bersama di memori</text>
+<text x="500" y="274" font-size="12" fill="#5F5E5A" text-anchor="middle" dominant-baseline="central">users: daftar user aktif (Lock)</text>
+<text x="500" y="292" font-size="12" fill="#5F5E5A" text-anchor="middle" dominant-baseline="central">queue: antrian pesan per client</text>
+<text x="500" y="310" font-size="12" fill="#5F5E5A" text-anchor="middle" dominant-baseline="central">PROSES: dedup request_id</text>
+</svg>

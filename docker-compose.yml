@@ -1,0 +1,52 @@
+services:
+  # Container Server Chat gRPC
+  chat-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rpc_chat_server
+    ports:
+      - "50051:50051"
+    command: ["python", "src/chat_room/server.py", "--host", "0.0.0.0", "--port", "50051", "--workers", "30"]
+    networks:
+      - chat-net
+    healthcheck:
+      test: ["CMD-SHELL", "python -c 'import socket; s = socket.socket(); s.connect((\"localhost\", 50051)); s.close()'"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 3s
+
+  # Container Client CLI A (Alice)
+  chat-client-a:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rpc_chat_client_a
+    stdin_open: true
+    tty: true
+    depends_on:
+      chat-server:
+        condition: service_healthy
+    command: ["python", "src/chat_room/client.py", "--server", "chat-server:50051", "--username", "Alice-Container"]
+    networks:
+      - chat-net
+
+  # Container Client CLI B (Bob)
+  chat-client-b:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rpc_chat_client_b
+    stdin_open: true
+    tty: true
+    depends_on:
+      chat-server:
+        condition: service_healthy
+    command: ["python", "src/chat_room/client.py", "--server", "chat-server:50051", "--username", "Bob-Container"]
+    networks:
+      - chat-net
+
+networks:
+  chat-net:
+    driver: bridge

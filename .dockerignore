@@ -1,0 +1,30 @@
+# Git & VCS
+.git/
+.gitignore
+
+# Virtual Environments (DO NOT leak Windows venv into Linux container)
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE & Editor files
+.vscode/
+.idea/
+
+# OS specific files
+Thumbs.db
+.DS_Store
+
+# Temporary & benchmark outputs
+*.log
