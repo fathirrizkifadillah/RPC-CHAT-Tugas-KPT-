@@ -238,8 +238,21 @@ RPC_CHAT/
 │   ├── benchmark-analysis.md      # Laporan analisis kinerja & scaling
 │   ├── draf-laporan-proyek.md     # Template laporan proyek untuk mahasiswa
 │   └── decisions/                 # Architecture Decision Records (ADRs)
-├── scripts/
-│   └── generate_stubs.py          # Skrip kompilasi protoc otomatis
+├── laporan/                       # Berkas Laporan Akhir & Pengumpulan Resmi
+│   ├── Kelompok3_ProyekRPC.zip    # Paket arsip pengumpulan resmi (PDF + Source Code)
+│   ├── Laporan_Proyek_Mini_RPC_Kelompok3.pdf   # Laporan akademik resmi (45 halaman)
+│   ├── Laporan_Proyek_Mini_RPC_Kelompok3.docx  # Naskah asli Word terkompilasi
+│   ├── QA_REVISION_REPORT.md      # Laporan verifikasi dan audit mutu dokumen
+│   ├── assets/                    # Diagram (PNG), grafik kinerja, dan tangkapan layar
+│   └── evidence/                  # Log pengujian mentah, JSON, CSV, dan output pytest
+├── scripts/                       # Otomatisasi Build, Pengujian, dan Dokumentasi
+│   ├── generate_stubs.py          # Kompilasi Protobuf ke stub Python
+│   ├── generate_visuals.py        # Pembuatan 5 diagram arsitektur & grafik tolok ukur
+│   ├── generate_screenshots.py    # Eksekusi skenario nyata & capture terminal
+│   ├── build_report_docx.py       # Pembuatan naskah DOCX akademik profesional
+│   ├── export_report_pdf.py       # Update Word COM (TOC, TOF, TOT) & ekspor PDF
+│   ├── verify_report_quality.py   # Pemeriksaan mutu PDF (0 halaman kosong, 0 error)
+│   └── package_submission.py      # Pembuatan arsip pengumpulan Kelompok3_ProyekRPC.zip
 ├── Dockerfile                     # Image definition dengan non-root user
 ├── docker-compose.yml             # Orchestration server dan 2 client
 ├── requirements.txt               # Daftar dependensi Python
@@ -247,6 +260,18 @@ RPC_CHAT/
 ├── HUMAN_RUNBOOK.md               # Panduan verifikasi manual mahasiswa
 └── arsitektur-chat-room.svg       # Diagram arsitektur acuan dari Claude
 ```
+
+---
+
+## 📦 Format Pengumpulan Sesuai Ketentuan Dosen
+
+Berdasarkan dokumen pedoman perkuliahan **Latihan & Praktikum RPC (Halaman 13)**:
+- **Format Berkas Proyek**: `Kelompok<no>_ProyekRPC.zip` berisi laporan PDF dan seluruh kode sumber.
+- **Nama Berkas Pengumpulan**: `Kelompok3_ProyekRPC.zip` (tersedia di direktori `laporan/Kelompok3_ProyekRPC.zip`).
+- **Isi Paket Pengumpulan**:
+  1. `Laporan_Proyek_Mini_RPC_Kelompok3.pdf`: Laporan lengkap 45 halaman mencakup diagram arsitektur, penjelasan file `.proto`, strategi concurrency, analisis kinerja beban, pembagian tugas anggota, serta tautan repositori Git.
+  2. `Laporan_Proyek_Mini_RPC_Kelompok3.docx`: Naskah Word asli untuk fleksibilitas editing.
+  3. `source_code/`: Kode sumber lengkap yang dapat langsung dijalankan sesuai petunjuk di `README.md`.
 
 ---
 

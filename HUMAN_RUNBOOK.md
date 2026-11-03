@@ -167,10 +167,17 @@ Dokumen ini berisi panduan operasional langkah-demi-langkah bagi mahasiswa untuk
 ---
 
 ### LANGKAH 8: Finalisasi Laporan dan Pengumpulan ZIP
-- **Tujuan**: Menyiapkan berkas pengumpulan sesuai format resmi PDF halaman 13.
-- **Format Berkas**:
-  - `Kelompok<no>_ProyekRPC.zip`
+- **Tujuan**: Menyiapkan berkas pengumpulan sesuai format resmi PDF panduan dosen (halaman 13).
+- **Format Berkas Resmi**:
+  - `Kelompok<no>_ProyekRPC.zip` (yaitu `Kelompok3_ProyekRPC.zip` untuk Studi Kasus 3: Chat Room).
 - **Isi Berkas ZIP**:
-  1. Laporan proyek final dalam format PDF (dikonversi dari `docs/draf-laporan-proyek.md` setelah diisi identitas lengkap, screenshot, dan link video).
-  2. Seluruh kode sumber (`proto/`, `src/`, `tests/`, `benchmarks/`, `docs/`, `Dockerfile`, `docker-compose.yml`, `requirements.txt`, `README.md`).
-  *Catatan: Pastikan folder `venv/` dan `__pycache__/` TIDAK dimasukkan ke dalam zip.*
+  1. Laporan proyek final resmi dalam format PDF (`Laporan_Proyek_Mini_RPC_Kelompok3.pdf`), 45 halaman lengkap.
+  2. Naskah Word asli (`Laporan_Proyek_Mini_RPC_Kelompok3.docx`).
+  3. Laporan audit verifikasi dokumen (`QA_REVISION_REPORT.md`).
+  4. Seluruh kode sumber (`proto/`, `src/`, `tests/`, `benchmarks/`, `docs/`, `scripts/`, `Dockerfile`, `docker-compose.yml`, `requirements.txt`, `README.md`).
+- **Lokasi Berkas Pengumpulan Siap Unggah**:
+  - `laporan/Kelompok3_ProyekRPC.zip`
+- **Cara Pembuatan Ulang Otomatis (Jika Diperlukan)**:
+  ```powershell
+  .\venv\Scripts\python.exe scripts/package_submission.py
+  ```
