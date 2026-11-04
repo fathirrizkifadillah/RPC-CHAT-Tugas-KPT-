@@ -14,20 +14,38 @@ import random
 import sys
 import threading
 import time
+from pathlib import Path
 from typing import Callable, List, Optional
 import uuid
+
+# Pastikan path aman
+_pkg_dir = Path(__file__).resolve().parent
+_src_dir = _pkg_dir.parent
+for _p in [str(_src_dir), str(_pkg_dir)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 import grpc
 from tabulate import tabulate
 
-from . import chat_room_pb2 as pb
-from . import chat_room_pb2_grpc as pb_grpc
-from .config import (
-    DEFAULT_BASE_RETRY_DELAY,
-    DEFAULT_MAX_RETRIES,
-    DEFAULT_SERVER_ADDRESS,
-    DEFAULT_UNARY_TIMEOUT,
-)
+try:
+    from . import chat_room_pb2 as pb
+    from . import chat_room_pb2_grpc as pb_grpc
+    from .config import (
+        DEFAULT_BASE_RETRY_DELAY,
+        DEFAULT_MAX_RETRIES,
+        DEFAULT_SERVER_ADDRESS,
+        DEFAULT_UNARY_TIMEOUT,
+    )
+except (ImportError, ValueError):
+    import chat_room_pb2 as pb
+    import chat_room_pb2_grpc as pb_grpc
+    from config import (
+        DEFAULT_BASE_RETRY_DELAY,
+        DEFAULT_MAX_RETRIES,
+        DEFAULT_SERVER_ADDRESS,
+        DEFAULT_UNARY_TIMEOUT,
+    )
 
 logger = logging.getLogger("chat_room.client")
 

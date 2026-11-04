@@ -8,14 +8,27 @@ Mengimplementasikan tiga komponen arsitektur utama:
 
 from collections import OrderedDict
 import logging
+from pathlib import Path
 import queue
+import sys
 import threading
 import time
 from typing import Any, Dict, List, Optional, Tuple
 import uuid
 
-from . import chat_room_pb2 as pb
-from .config import DEFAULT_CLIENT_QUEUE_MAXSIZE, DEFAULT_MAX_PROSES_CACHE
+# Pastikan path aman
+_pkg_dir = Path(__file__).resolve().parent
+_src_dir = _pkg_dir.parent
+for _p in [str(_src_dir), str(_pkg_dir)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+try:
+    from . import chat_room_pb2 as pb
+    from .config import DEFAULT_CLIENT_QUEUE_MAXSIZE, DEFAULT_MAX_PROSES_CACHE
+except (ImportError, ValueError):
+    import chat_room_pb2 as pb
+    from config import DEFAULT_CLIENT_QUEUE_MAXSIZE, DEFAULT_MAX_PROSES_CACHE
 
 logger = logging.getLogger("chat_room.state")
 

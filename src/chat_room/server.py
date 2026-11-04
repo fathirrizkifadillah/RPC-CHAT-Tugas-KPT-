@@ -9,18 +9,32 @@ Sesuai dengan diagram arsitektur:
 import argparse
 from concurrent import futures
 import logging
+from pathlib import Path
 import signal
 import sys
 import threading
 import time
 from typing import Optional, Tuple
 
+# Pastikan direktori root, src, dan chat_room masuk sys.path agar aman dijalankan langsung
+_pkg_dir = Path(__file__).resolve().parent
+_src_dir = _pkg_dir.parent
+for _p in [str(_src_dir), str(_pkg_dir)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
 import grpc
 
-from . import chat_room_pb2_grpc as pb_grpc
-from .config import DEFAULT_HOST, DEFAULT_MAX_WORKERS, DEFAULT_PORT
-from .service import LayananChatService
-from .state import ChatState
+try:
+    from . import chat_room_pb2_grpc as pb_grpc
+    from .config import DEFAULT_HOST, DEFAULT_MAX_WORKERS, DEFAULT_PORT
+    from .service import LayananChatService
+    from .state import ChatState
+except (ImportError, ValueError):
+    import chat_room_pb2_grpc as pb_grpc
+    from config import DEFAULT_HOST, DEFAULT_MAX_WORKERS, DEFAULT_PORT
+    from service import LayananChatService
+    from state import ChatState
 
 # Reconfigure stdout for utf-8 on Windows
 if hasattr(sys.stdout, "reconfigure"):

@@ -17,9 +17,9 @@
 
 | No | Nama Lengkap Mahasiswa | NIM | Peran Utama & Lingkup Modul | Bukti Commit Git Utama |
 |:---:|---|:---:|---|---|
-| 1 | `[NAMA MAHASISWA 1]` *(Ketua)* | `[NIM MAHASISWA 1]` | Desain IDL `.proto`, Arsitektur Server gRPC, Concurrency State Management | `feat(proto): ...`, `feat(server): ...` |
-| 2 | `[NAMA MAHASISWA 2]` | `[NIM MAHASISWA 2]` | Client CLI Terminal, Toleransi Kegagalan (Retry Backoff, Timeout, Deduplikasi) | `feat(client): ...`, `feat(resilience): ...` |
-| 3 | `[NAMA MAHASISWA 3]` | `[NIM MAHASISWA 3]` | Otomasi Pengujian (Pytest 22 Kasus), Docker Multi-Container, Benchmark Kinerja | `test: ...`, `ci(docker): ...`, `perf: ...` |
+| 1 | Fathir *(Ketua)* | `[NIM FATHIR]` | Desain IDL `.proto`, Arsitektur Server gRPC, Concurrency State Management | `feat(proto): ...`, `feat(server): ...` |
+| 2 | Ajib | `[NIM AJIB]` | Client CLI Terminal, Toleransi Kegagalan (Retry Backoff, Timeout, Deduplikasi) | `feat(client): ...`, `feat(resilience): ...` |
+| 3 | Reza | `[NIM REZA]` | Otomasi Pengujian (Pytest 22 Kasus), Docker Multi-Container, Benchmark Kinerja | `test: ...`, `ci(docker): ...`, `perf: ...` |
 
 - **Tautan Repositori Git**: `https://github.com/[ORGANISASI_ATAU_USER]/[NAMA_REPO_PROYEK_RPC]`
 - **Tautan Video Demonstrasi Sistem (Durasi Maksimal 5 Menit)**: `https://youtu.be/[ID_VIDEO_YOUTUBE]`
@@ -432,7 +432,7 @@ Tingkat Keberhasilan: **100% Lulus (22 passed, 0 failed)**.
 
 Sesuai dengan ketentuan pada rubrik penilaian (setiap anggota kelompok wajib memahami proyek dan memiliki riwayat commit nyata), berikut pembagian tanggung jawab teknis:
 
-### 1. [NAMA MAHASISWA 1] (Ketua Kelompok — NIM: [NIM 1])
+### 1. Fathir (Ketua Kelompok — NIM: [NIM FATHIR])
 - **Fokus Modul**: Desain IDL `.proto`, Arsitektur Server gRPC, Concurrency State Management.
 - **Rincian Kontribusi**:
   - Menyusun kontrak antarmuka `proto/chat_room.proto` dan konfigurasi kompilasi stub `scripts/generate_stubs.py`.
@@ -440,7 +440,7 @@ Sesuai dengan ketentuan pada rubrik penilaian (setiap anggota kelompok wajib mem
   - Merancang logika sinkronisasi thread-safe pada `src/chat_room/state.py` (`users`, `queue`, `PROSES`).
 - **Commit Git Utama**: `feat(proto): ...`, `feat(server): ...`.
 
-### 2. [NAMA MAHASISWA 2] (Anggota — NIM: [NIM 2])
+### 2. Ajib (Anggota — NIM: [NIM AJIB])
 - **Fokus Modul**: Client CLI Terminal, Toleransi Kegagalan (Retry Backoff, Timeout, Deduplikasi).
 - **Rincian Kontribusi**:
   - Mengembangkan antarmuka interaktif terminal pada `src/chat_room/client.py`.
@@ -449,7 +449,7 @@ Sesuai dengan ketentuan pada rubrik penilaian (setiap anggota kelompok wajib mem
   - Memastikan kestabilan pengiriman `request_id` unik untuk mencegah duplikasi pesan.
 - **Commit Git Utama**: `feat(client): ...`, `feat(resilience): ...`.
 
-### 3. [NAMA MAHASISWA 3] (Anggota — NIM: [NIM 3])
+### 3. Reza (Anggota — NIM: [NIM REZA])
 - **Fokus Modul**: Otomasi Pengujian (Pytest 22 Kasus), Containerisasi Docker, dan Pengujian Kinerja.
 - **Rincian Kontribusi**:
   - Menyusun rangkaian 22 pengujian otomatis pada direktori `tests/` (`conftest.py`, `test_concurrency.py`, dll).

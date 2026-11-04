@@ -41,6 +41,7 @@ wheels/
 Thumbs.db
 [Dd]esktop.ini
 .DS_Store
+*.lnk
 
 # IDE & Editor
 .vscode/
@@ -51,4 +52,9 @@ Thumbs.db
 # Office & temporary locks
 ~$*.docx
 ~$*.pptx
+* (2).docx
+*_LATEST.docx
+test.docx
+test_slide.pptx
 laporan/archive/
+laporan/mini_project_final/

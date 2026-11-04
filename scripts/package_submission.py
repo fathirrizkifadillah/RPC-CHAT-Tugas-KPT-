@@ -76,7 +76,7 @@ def create_submission_zip():
                         if d not in ("__pycache__", ".pytest_cache") and not d.endswith(".egg-info")
                     ]
                     for file in files:
-                        if file.endswith((".pyc", ".pyo", ".tmp")):
+                        if file.endswith((".pyc", ".pyo", ".tmp")) or file.startswith("~$"):
                             continue
                         full_p = Path(root) / file
                         rel_p = full_p.relative_to(PROJECT_ROOT)

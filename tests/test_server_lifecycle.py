@@ -1,12 +1,24 @@
 """Tests for Server Startup, Port Binding, and Graceful Shutdown."""
 
 import socket
+import sys
 import time
+from pathlib import Path
 import grpc
 import pytest
 
+_tests_dir = Path(__file__).resolve().parent
+_root_dir = _tests_dir.parent
+for _p in [str(_root_dir), str(_tests_dir), str(_root_dir / "src")]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
 from chat_room.server import create_server
-from tests.conftest import get_free_port
+
+try:
+    from conftest import get_free_port
+except ImportError:
+    from tests.conftest import get_free_port
 
 
 def test_server_startup_and_graceful_stop():
