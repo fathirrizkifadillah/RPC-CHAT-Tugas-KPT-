@@ -1,8 +1,59 @@
+<div align="center">
+
 # Distributed Chat Room RPC
 
-Sistem obrolan terdistribusi banyak pengguna (*multi-user chat room*) berbasis **Remote Procedure Call (gRPC)** dan **Protocol Buffers v3** dengan Python untuk mata kuliah **Komputasi Paralel dan Terdistribusi**.
+**Sistem obrolan real-time multi-user berbasis gRPC dan Protocol Buffers v3**
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![gRPC](https://img.shields.io/badge/RPC-gRPC-244c5a?logo=google&logoColor=white)](https://grpc.io/)
+[![Protocol Buffers](https://img.shields.io/badge/Protocol-Protocol%20Buffers%20v3-4285F4)](https://protobuf.dev/)
+[![Docker](https://img.shields.io/badge/Container-Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+
+*Proyek Mata Kuliah Komputasi Paralel dan Terdistribusi*
+
+</div>
+
+> Implementasi ruang obrolan terdistribusi dengan komunikasi dua arah (*bidirectional streaming*), pengelolaan konkurensi, toleransi kegagalan, dan deduplikasi pesan.
+
+## 🧭 Navigasi
+
+- [Gambaran Umum](#gambaran-umum)
+- [Fitur Utama](#-fitur-utama)
+- [Tech Stack & Prasyarat](#️-tech-stack--prasyarat)
+- [Panduan Memulai Cepat](#-panduan-memulai-cepat-getting-started)
+- [Menjalankan Aplikasi](#-menjalankan-aplikasi)
+- [Pengujian Otomatis](#-pengujian-otomatis-automated-testing)
+- [Benchmark](#-pengujian-kinerja-benchmark-1-5-20-client)
+- [Docker Compose](#-menjalankan-dengan-docker-compose)
+- [Struktur Proyek](#-struktur-direktori-proyek)
+- [Format Pengumpulan](#-format-pengumpulan-sesuai-ketentuan-dosen)
+- [Batasan Teknis](#️-batasan-arsitektur--catatan-teknis)
+- [Tim Pengembang](#-tim-pengembang)
+
+## Gambaran Umum
 
 Proyek ini mengimplementasikan studi kasus obrolan real-time dengan komunikasi dua arah (*bidirectional streaming*), isolasi antrean per client, sinkronisasi memori bersama (*shared memory state*), toleransi kegagalan dengan *exponential backoff retry*, serta deduplikasi pesan (*at-most-once semantics*).
+
+### Alur komunikasi
+
+```mermaid
+flowchart LR
+    A[Client A] <-->|gRPC / Chat stream| S[ gRPC Server ]
+    B[Client B] <-->|gRPC / Chat stream| S
+    C[Client lain] <-->|gRPC / Chat stream| S
+    S <--> U[(Shared state<br/>users)]
+    S <--> Q[(Queue per client)]
+    S <--> P[(Request deduplication<br/>PROSES)]
+```
+
+### Ringkasan antarmuka RPC
+
+| RPC | Tipe komunikasi | Fungsi |
+|---|---|---|
+| `Join` | Unary | Registrasi pengguna dan penetapan `user_id` unik |
+| `ListUsers` | Unary | Mengambil snapshot pengguna online |
+| `SendMessage` | Unary | Mengirim pesan dengan deduplikasi `request_id` |
+| `Chat` | Bidirectional streaming | Komunikasi pesan real-time dua arah |
 
 ---
 
@@ -46,6 +97,19 @@ Proyek ini mengimplementasikan studi kasus obrolan real-time dengan komunikasi d
 
 ---
 
+## Urutan Penggunaan
+
+Untuk menjalankan proyek secara lokal, ikuti urutan berikut:
+
+1. Buat dan aktifkan virtual environment.
+2. Instal dependensi dari `requirements.txt`.
+3. (Opsional) Generate ulang stub jika kontrak `.proto` diubah.
+4. Jalankan server gRPC.
+5. Jalankan dua atau lebih client pada terminal terpisah.
+6. Jalankan pengujian dan benchmark untuk memeriksa perilaku serta kinerja sistem.
+
+---
+
 ## 🚀 Panduan Memulai Cepat (Getting Started)
 
 ### 1. Persiapan Virtual Environment (`venv`)
@@ -86,7 +150,7 @@ python -c "import grpc, google.protobuf; print('gRPC dan Protobuf berhasil diimp
 
 ### 3. Kompilasi Protocol Buffers (Generate Stubs)
 
-Stub gRPC telah tersedia di folder `src/chat_room/`. Jika Anda mengubah file `proto/chat_room.proto`, lakukan kompilasi ulang dengan skrip:
+Stub gRPC telah tersedia di folder `src/chat_room/`. File `proto/chat_room.proto` merupakan kontrak antarmuka. Stub gRPC hasil generate telah tersedia di `src/chat_room/`. Jika Anda mengubah file `.proto`, lakukan kompilasi ulang dengan skrip:
 
 ```powershell
 python scripts/generate_stubs.py
@@ -132,6 +196,9 @@ python src/chat_room/client.py --server localhost:50051 --username Bob
 - `/help`: Menampilkan ringkasan bantuan perintah.
 - `/exit` atau `/quit`: Keluar dari ruang obrolan secara tertib.
 
+> **Catatan penggunaan:** Jalankan server terlebih dahulu sebelum membuka client. Untuk menguji komunikasi antar pengguna, jalankan setiap client pada terminal terpisah dan gunakan alamat server yang sama.
+
+
 ---
 
 ## 🧪 Pengujian Otomatis (Automated Testing)
@@ -165,6 +232,8 @@ Skrip benchmark menguji throughput dan latensi gRPC secara riil:
 ```powershell
 python benchmarks/run_benchmark.py --clients 1,5,20 --messages 50
 ```
+
+Jalankan perintah dari root direktori proyek. Sesuaikan jumlah client atau pesan melalui argumen `--clients` dan `--messages` bila diperlukan.
 
 Hasil pengujian otomatis tersimpan pada:
 - **JSON**: `benchmarks/results/benchmark_results.json`
@@ -287,3 +356,18 @@ Berdasarkan dokumen pedoman perkuliahan **Latihan & Praktikum RPC (Halaman 13)**
 
 - Proyek Mini Komputasi Paralel dan Terdistribusi
 - Lihat `docs/draf-laporan-proyek.md` untuk rincian kontribusi masing-masing anggota kelompok.
+
+---
+
+## 📚 Dokumentasi Tambahan
+
+Untuk pendalaman implementasi dan proses verifikasi, proyek juga menyediakan:
+
+- `docs/architecture.md` — penjelasan arsitektur sistem.
+- `docs/requirements-matrix.md` — pemetaan persyaratan terhadap implementasi.
+- `docs/environment-setup.md` — konfigurasi lingkungan secara lebih rinci.
+- `docs/benchmark-analysis.md` — analisis hasil benchmark dan scaling.
+- `HUMAN_RUNBOOK.md` — panduan verifikasi manual.
+
+Lihat struktur direktori di atas untuk daftar dokumentasi, skrip otomatisasi, artefak pengujian, dan berkas laporan lainnya.
+
